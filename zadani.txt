@@ -1,0 +1,19 @@
+PROJEKT WEBY
+
+react chakra-ui
+
+webová aplikace pro procvičení / porovnání assembly kódu
+
+uživatel má k dispozici okno pro high level kod v ruznych jazycich, kde může vložit, okno na psani kodu
+a po submitu se vyhodnoti odchylka compiler vystupu k vstupu a zpětná vazba pro uživatele
+
+úloha by mohla mít úrovně podle řádů optimalizace compileru
+
+uživatel má historii procvičování v local storage
+
+uživatel by mohl mít možnost procvičovat assembly instrukce kartičkovou formou
+progress by se mohl ukládat v local storage
+
+
+
+
