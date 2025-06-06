@@ -1,24 +1,12 @@
+import { Route, Routes } from "react-router";
 import "./App.css";
-import Editor from "@/components/Editor";
-import { EditorContext } from "@/contexts/EditorContext";
-import { Button } from "@chakra-ui/react";
-import { useContext } from "react";
+import HomePage from "./pages/HomePage";
 
 function App() {
-	const ctx = useContext(EditorContext);
 	return (
-		<>
-			<Button
-				onClick={() => ctx.setBindings((mode) => (mode == "" ? "vim" : ""))}
-			>
-				switch binds
-			</Button>
-			<Editor
-				onChange={() => console.log("fkdsjlf")}
-				mode="assembly_x86"
-				name="skibidi"
-			/>
-		</>
+		<Routes>
+			<Route path="/" element={<HomePage />} />
+		</Routes>
 	);
 }
 
