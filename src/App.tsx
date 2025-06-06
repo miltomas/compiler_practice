@@ -1,8 +1,14 @@
-import './App.css';
-import { Button } from "@chakra-ui/react";
+import "./App.css";
+import Editor from "@/components/Editor";
 
 function App() {
-	return <><Button>jojdlfj</Button></>
+	return (
+		<Editor
+			onChange={() => console.log("fkdsjlf")}
+			mode="assembly_x86"
+			name="skibidi"
+		/>
+	);
 }
 
-export default App
+export default App;
