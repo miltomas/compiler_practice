@@ -1,12 +1,15 @@
 import Editor from "@/components/Editor";
+import AsmDiffEditor from "@/components/AsmDiffEditor";
 import { EditorContext } from "@/contexts/EditorContext";
 import { Button, Flex, HStack } from "@chakra-ui/react";
 import { useContext } from "react";
 
 export default function HomePage() {
 	const ctx = useContext(EditorContext);
+
 	return (
 		<>
+			<AsmDiffEditor />
 			<Flex justify="space-around">
 				<HStack>
 					<Editor
