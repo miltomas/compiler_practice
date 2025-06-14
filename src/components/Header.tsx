@@ -10,40 +10,29 @@ import {
 	Menu,
 	Portal,
 	IconButton,
-} from '@chakra-ui/react';
-import {
-	LuHouse,
-	LuInfo,
-	LuList,
-} from 'react-icons/lu';
-import { Link } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { LuHouse, LuInfo, LuList } from "react-icons/lu";
+import { Link } from "react-router-dom";
+import { ColorModeButton } from "./ui/color-mode";
 
 function Header() {
 	const isSmall = useBreakpointValue({ base: true, md: false });
 
 	return (
-		<Box
-			p="2"
-			boxShadow="md"
-			position="sticky"
-			top={0}
-			w="100%"
-			bg="bg.muted">
+		<Box p="1" boxShadow="md" position="sticky" top={0} w="100%" bg="bg.emphasized">
 			<Flex justify="space-between" align="center" gap="2">
 				<Link to="/">
-					<Heading
-						size={{ base: 'xs', sm: 'lg', md: 'xl'}}
-						fontWeight="bold"
-						mt="-1">
+					<Heading ml={1} size="2xl" fontWeight="bold" mt="-1">
 						Compiler Practice
 					</Heading>
 				</Link>
 
 				<HStack separator={<StackSeparator />}>
+					<ColorModeButton size="lg" />
 					{isSmall ? (
 						<Menu.Root>
 							<Menu.Trigger asChild>
-								<IconButton boxSize={{ base: '6', sm: '9' }}>
+								<IconButton boxSize={9}>
 									<LuList />
 								</IconButton>
 							</Menu.Trigger>
@@ -69,19 +58,19 @@ function Header() {
 							</Portal>
 						</Menu.Root>
 					) : (
-						<ButtonGroup size={{ md: 'lg', lg: 'md' }}>
-							<Link to="/">
-								<Button>
-									<LuHouse /> Home
-								</Button>
-							</Link>
-							<Link to="/about">
-								<Button>
-									<LuInfo /> About
-								</Button>
-							</Link>
-						</ButtonGroup>
-					)}
+							<ButtonGroup size="lg">
+								<Link to="/">
+									<Button>
+										<LuHouse /> Home
+									</Button>
+								</Link>
+								<Link to="/about">
+									<Button>
+										<LuInfo /> About
+									</Button>
+								</Link>
+							</ButtonGroup>
+						)}
 				</HStack>
 			</Flex>
 		</Box>
