@@ -35,12 +35,13 @@ export default function HomePage() {
 	];
 
 	return (
-		<Flex w="100%" h="100%" justify="center" align="center">
+		<Flex w="100vw" h="100vh" justify="center" align="center">
 			<Steps.Root
 				orientation="vertical"
 				height="60vh"
 				defaultStep={1}
 				count={steps.length}
+				w="30vw"
 			>
 				<Steps.List>
 					{steps.map((step, index) => (
@@ -55,11 +56,11 @@ export default function HomePage() {
 				<Stack>
 					{steps.map((step, index) => (
 						<Steps.Content key={index} index={index}>
-							<Box maxW="500px">{step.description}</Box>
+							<Box maxW="500px" fontSize="xl">{step.description}</Box>
 						</Steps.Content>
 					))}
 					<Steps.CompletedContent>
-						<Heading>All steps are complete!</Heading>
+						<Heading size="3xl">All steps are complete!</Heading>
 						<Link to="/sandbox">
 							<Button>
 								<LuArrowRightToLine />

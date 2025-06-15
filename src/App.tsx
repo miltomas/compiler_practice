@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { useContext, useEffect } from "react";
 import { EditorContext, type EditorBinds } from "./contexts/EditorContext";
+import { Box } from "@chakra-ui/react";
 
 function App() {
 	const editorCtx = useContext(EditorContext);
@@ -15,10 +16,17 @@ function App() {
 
 	return (
 		<>
-		<Header />
-		<Routes>
-			<Route path="/" element={<HomePage />} />
-		</Routes>
+			<Box
+				maxH={{
+					base: "calc(100vh - 40px)",
+				}}
+				overflowY="auto"
+				position="sticky"
+			/>
+			<Header />
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+			</Routes>
 		</>
 	);
 }
