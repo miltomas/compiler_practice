@@ -4,10 +4,12 @@ import {
 	ButtonGroup,
 	Flex,
 	Heading,
+	IconButton,
 	Stack,
 	Steps,
 } from "@chakra-ui/react";
-import { LuArrowRightToLine } from "react-icons/lu";
+import { AiFillAppstore } from "react-icons/ai";
+import { LuArrowRightToLine, LuCodesandbox } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
@@ -31,6 +33,7 @@ export default function HomePage() {
 			title: "Sandbox",
 			description:
 				"This is a sandbox. No statistics are provided, you're just goofing around.",
+			icon: <LuCodesandbox />,
 		},
 	];
 
@@ -71,6 +74,7 @@ export default function HomePage() {
 								animation: "fade-in 900ms ease-out",
 							}}
 						>
+							{step.icon && <IconButton size="xl" mb="10px">{step.icon}</IconButton>}
 							<Box maxW="500px" fontSize="xl">
 								{step.description}
 							</Box>
