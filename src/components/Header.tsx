@@ -16,6 +16,7 @@ import {
 import { LuHouse, LuInfo, LuList, LuSettings } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { ColorModeButton } from "./ui/color-mode";
+import SettingsContent from "./SettingsContent";
 
 function Settings() {
 	return (
@@ -32,7 +33,9 @@ function Settings() {
 						<Drawer.Header>
 							<Drawer.Title>Settings</Drawer.Title>
 						</Drawer.Header>
-						<Drawer.Body></Drawer.Body>
+						<Drawer.Body>
+							<SettingsContent />
+						</Drawer.Body>
 						<Drawer.CloseTrigger asChild>
 							<CloseButton size="sm" />
 						</Drawer.CloseTrigger>
