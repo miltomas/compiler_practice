@@ -10,10 +10,38 @@ import {
 	Menu,
 	Portal,
 	IconButton,
+	Drawer,
+	CloseButton,
 } from "@chakra-ui/react";
 import { LuHouse, LuInfo, LuList, LuSettings } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { ColorModeButton } from "./ui/color-mode";
+
+function Settings() {
+	return (
+		<Drawer.Root size={{ base: "full", md: "lg" }}>
+			<Drawer.Trigger asChild>
+				<Button variant="outline">
+					<LuSettings />
+				</Button>
+			</Drawer.Trigger>
+			<Portal>
+				<Drawer.Backdrop />
+				<Drawer.Positioner>
+					<Drawer.Content>
+						<Drawer.Header>
+							<Drawer.Title>Settings</Drawer.Title>
+						</Drawer.Header>
+						<Drawer.Body></Drawer.Body>
+						<Drawer.CloseTrigger asChild>
+							<CloseButton size="sm" />
+						</Drawer.CloseTrigger>
+					</Drawer.Content>
+				</Drawer.Positioner>
+			</Portal>
+		</Drawer.Root>
+	);
+}
 
 function Hamburger() {
 	return (
@@ -50,14 +78,7 @@ function Header() {
 	const isSmall = useBreakpointValue({ base: true, md: false });
 
 	return (
-		<Box
-			p="1"
-			boxShadow="md"
-			position="sticky"
-			top={0}
-			w="100%"
-			bg="bg.emphasized"
-		>
+		<Box boxShadow="md" position="sticky" top={0} w="100%" bg="bg.emphasized">
 			<Flex justify="space-between" align="center">
 				<Link to="/">
 					<Heading ml={1} size="2xl" fontWeight="bold">
@@ -68,9 +89,7 @@ function Header() {
 				<HStack separator={<StackSeparator />}>
 					<ButtonGroup>
 						<ColorModeButton size="sm" />
-						<Button variant="ghost">
-							<LuSettings />
-						</Button>
+						<Settings />
 					</ButtonGroup>
 					{isSmall ? (
 						<Hamburger />
