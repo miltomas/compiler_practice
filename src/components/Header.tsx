@@ -22,7 +22,7 @@ function Settings() {
 	return (
 		<Drawer.Root size={{ base: "full", md: "lg" }}>
 			<Drawer.Trigger asChild>
-				<Button variant="outline">
+				<Button variant="ghost">
 					<LuSettings />
 				</Button>
 			</Drawer.Trigger>
@@ -81,7 +81,7 @@ function Header() {
 	const isSmall = useBreakpointValue({ base: true, md: false });
 
 	return (
-		<Box boxShadow="md" position="sticky" top={0} w="100%" bg="bg.emphasized">
+		<Box shadow="sm" position="sticky" top={0} w="100%" bg="bg.muted">
 			<Flex justify="space-between" align="center">
 				<Link to="/">
 					<Heading ml={1} size="2xl" fontWeight="bold">
@@ -97,7 +97,7 @@ function Header() {
 					{isSmall ? (
 						<Hamburger />
 					) : (
-						<ButtonGroup size="sm" variant="solid">
+						<ButtonGroup size="sm" variant="plain">
 							<Link to="/">
 								<Button>
 									<LuHouse /> Home
