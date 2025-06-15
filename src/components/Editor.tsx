@@ -18,7 +18,7 @@ interface EditorProps {
 }
 
 export default function Editor(props: EditorProps) {
-	const { bindings } = useContext(EditorContext);
+	const { bindings, scale } = useContext(EditorContext);
 
 	const theme = useColorModeValue("kuroir", "monokai");
 
@@ -26,6 +26,7 @@ export default function Editor(props: EditorProps) {
 		<AceEditor
 			mode={props.mode}
 			theme={theme}
+			fontSize={scale}
 			onChange={props.onChange}
 			name={props.name}
 			editorProps={{ $blockScrolling: true }}
