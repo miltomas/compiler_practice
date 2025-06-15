@@ -9,7 +9,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/keybinding-vim";
 import { useContext } from "react";
 import { EditorContext } from "@/contexts/EditorContext";
-import { useColorModeValue } from "./ui/color-mode";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 interface EditorProps {
 	onChange: (value: string, event: any) => void;

@@ -3,7 +3,7 @@ import "ace-builds/src-noconflict/mode-assembly_x86";
 import "ace-builds/src-noconflict/theme-kuroir";
 import "ace-builds/src-noconflict/theme-monokai";
 import "./Diff.css";
-import { useColorModeValue } from "./ui/color-mode";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { useContext } from "react";
 import { EditorContext } from "@/contexts/EditorContext";
 

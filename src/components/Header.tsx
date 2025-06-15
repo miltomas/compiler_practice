@@ -10,41 +10,11 @@ import {
 	Menu,
 	Portal,
 	IconButton,
-	Drawer,
-	CloseButton,
 } from "@chakra-ui/react";
-import { LuHouse, LuInfo, LuList, LuSettings } from "react-icons/lu";
+import { LuHouse, LuInfo, LuList } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { ColorModeButton } from "./ui/color-mode";
-import SettingsContent from "./SettingsContent";
-
-function Settings() {
-	return (
-		<Drawer.Root size={{ base: "full", md: "lg" }}>
-			<Drawer.Trigger asChild>
-				<Button variant="ghost">
-					<LuSettings />
-				</Button>
-			</Drawer.Trigger>
-			<Portal>
-				<Drawer.Backdrop />
-				<Drawer.Positioner>
-					<Drawer.Content>
-						<Drawer.Header>
-							<Drawer.Title>Settings</Drawer.Title>
-						</Drawer.Header>
-						<Drawer.Body>
-							<SettingsContent />
-						</Drawer.Body>
-						<Drawer.CloseTrigger asChild>
-							<CloseButton size="sm" />
-						</Drawer.CloseTrigger>
-					</Drawer.Content>
-				</Drawer.Positioner>
-			</Portal>
-		</Drawer.Root>
-	);
-}
+import Settings from "./Settings/Settings";
 
 function Hamburger() {
 	return (
