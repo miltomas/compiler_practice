@@ -11,7 +11,7 @@ import {
 	Portal,
 	IconButton,
 } from "@chakra-ui/react";
-import { LuHouse, LuInfo, LuList } from "react-icons/lu";
+import { LuCodesandbox, LuHouse, LuInfo, LuList } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { ColorModeButton } from "./ui/color-mode";
 import Settings from "./Settings/Settings";
@@ -73,9 +73,9 @@ function Header() {
 									<LuHouse /> Home
 								</Button>
 							</Link>
-							<Link to="/about">
+							<Link to="/sandbox">
 								<Button>
-									<LuInfo /> About
+									<LuCodesandbox /> Sandbox
 								</Button>
 							</Link>
 						</ButtonGroup>
