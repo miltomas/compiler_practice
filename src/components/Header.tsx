@@ -20,15 +20,15 @@ function Header() {
 
 	return (
 		<Box p="1" boxShadow="md" position="sticky" top={0} w="100%" bg="bg.emphasized">
-			<Flex justify="space-between" align="center" gap="2">
+			<Flex justify="space-between" align="center">
 				<Link to="/">
-					<Heading ml={1} size="2xl" fontWeight="bold" mt="-1">
+					<Heading ml={1} size="2xl" fontWeight="bold">
 						Compiler Practice
 					</Heading>
 				</Link>
 
 				<HStack separator={<StackSeparator />}>
-					<ColorModeButton size="lg" />
+					<ColorModeButton size="sm" />
 					{isSmall ? (
 						<Menu.Root>
 							<Menu.Trigger asChild>
@@ -58,9 +58,9 @@ function Header() {
 							</Portal>
 						</Menu.Root>
 					) : (
-							<ButtonGroup size="lg">
+							<ButtonGroup size="sm" variant="solid">
 								<Link to="/">
-									<Button>
+									<Button >
 										<LuHouse /> Home
 									</Button>
 								</Link>
