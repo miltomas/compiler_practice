@@ -45,7 +45,15 @@ export default function HomePage() {
 			>
 				<Steps.List>
 					{steps.map((step, index) => (
-						<Steps.Item key={index} index={index} title={step.title}>
+						<Steps.Item
+							key={index}
+							index={index}
+							title={step.title}
+							data-state="open"
+							_open={{
+								animation: "fade-in 300ms ease-out",
+							}}
+						>
 							<Steps.Indicator />
 							<Steps.Title>{step.title}</Steps.Title>
 							<Steps.Separator />
@@ -55,14 +63,28 @@ export default function HomePage() {
 
 				<Stack>
 					{steps.map((step, index) => (
-						<Steps.Content key={index} index={index}>
-							<Box maxW="500px" fontSize="xl">{step.description}</Box>
+						<Steps.Content
+							key={index}
+							index={index}
+							data-state="open"
+							_open={{
+								animation: "fade-in 900ms ease-out",
+							}}
+						>
+							<Box maxW="500px" fontSize="xl">
+								{step.description}
+							</Box>
 						</Steps.Content>
 					))}
 					<Steps.CompletedContent>
 						<Heading size="3xl">All steps are complete!</Heading>
 						<Link to="/sandbox">
-							<Button>
+							<Button
+								data-state="open"
+								_open={{
+									animation: "slide-from-bottom 900ms ease-in-out",
+								}}
+							>
 								<LuArrowRightToLine />
 								Write some assembly!
 							</Button>
