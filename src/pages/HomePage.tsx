@@ -1,6 +1,6 @@
 import Editor from "@/components/Editor";
 import AsmDiffEditor from "@/components/AsmDiffEditor";
-import { Button, Flex, HStack, Slider } from "@chakra-ui/react";
+import { Button, Flex, HStack } from "@chakra-ui/react";
 
 export default function HomePage() {
   return (
