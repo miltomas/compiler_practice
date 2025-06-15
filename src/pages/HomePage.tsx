@@ -8,7 +8,6 @@ import {
 	Stack,
 	Steps,
 } from "@chakra-ui/react";
-import { AiFillAppstore } from "react-icons/ai";
 import { LuArrowRightToLine, LuCodesandbox } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
@@ -38,7 +37,7 @@ export default function HomePage() {
 	];
 
 	return (
-		<Flex w="100vw" h="100vh" justify="center" align="center">
+		<Flex w="100%" h="100%" justify="center" align="center">
 			<Steps.Root
 				orientation="vertical"
 				height="60vh"

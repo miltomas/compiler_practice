@@ -10,23 +10,23 @@ function App() {
 	const editorCtx = useContext(EditorContext);
 
 	useEffect(() => {
-		editorCtx.setBindings(localStorage.getItem("binds") as EditorBinds ?? "");
+		editorCtx.setBindings((localStorage.getItem("binds") as EditorBinds) ?? "");
 		editorCtx.setScale(Number(localStorage.getItem("scale")) ?? 14);
 	}, []);
 
 	return (
 		<>
+			<Header />
 			<Box
-				maxH={{
-					base: "calc(100vh - 40px)",
-				}}
+				h="calc(100vh - 40px)"
+				maxW="100vw"
 				overflowY="auto"
 				position="sticky"
-			/>
-			<Header />
-			<Routes>
-				<Route path="/" element={<HomePage />} />
-			</Routes>
+			>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+				</Routes>
+			</Box>
 		</>
 	);
 }
