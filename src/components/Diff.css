@@ -1,4 +1,10 @@
-.codeMarker  {
+.light .codeMarker  {
+  background: yellow;
+  position: absolute;
+  z-index: 20;
+}
+
+.dark .codeMarker  {
   background: brown;
   position: absolute;
   z-index: 20;
