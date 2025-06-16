@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { useContext, useEffect } from "react";
 import { EditorContext, type EditorBinds } from "./contexts/EditorContext";
 import { Box } from "@chakra-ui/react";
+import Sandbox from "./pages/Sandbox";
 
 function App() {
 	const editorCtx = useContext(EditorContext);
@@ -25,6 +26,7 @@ function App() {
 			>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
+					<Route path="/sandbox" element={<Sandbox />} />
 				</Routes>
 			</Box>
 		</>
