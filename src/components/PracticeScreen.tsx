@@ -46,6 +46,10 @@ async function postToGodbolt(
   }
 }
 
+function format(input: string) {
+  return input.replace(/[ \t]+/g, ' ').replace(/^\s*[\r\n]/gm, '');
+}
+
 export default function PracticeScreen() {
   const highLevelCode = useRef("");
   const predictedCode = useRef("");
@@ -65,7 +69,7 @@ export default function PracticeScreen() {
         source: highLevelCode.current,
         options: "",
       });
-      compilerOutput.current = asm;
+      compilerOutput.current = format(asm.replace("# Compilation provided by Compiler Explorer at https://godbolt.org/", ""));
     }
 
     setFetching(false);
@@ -90,7 +94,7 @@ export default function PracticeScreen() {
         <Stack w="100%" h="100%">
           <Heading>Assembly</Heading>
           <Editor
-            onChange={(value) => (predictedCode.current = value)}
+            onChange={(value) => (predictedCode.current = format(value))}
             mode="assembly_x86"
             placeholder="Predict compiler output"
           />
