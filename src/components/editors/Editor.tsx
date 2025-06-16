@@ -16,6 +16,7 @@ interface EditorProps {
 	onChange: (value: string, event: any) => void;
 	mode: string;
 	name: string;
+	readonly: boolean;
 }
 
 export default function Editor(props: EditorProps) {
@@ -27,12 +28,13 @@ export default function Editor(props: EditorProps) {
 		<Box overflow="hidden" width="100%" height="100%" borderRadius="8px">
 			<AceEditor
 				mode={props.mode}
+				name={props.name}
+				readOnly={props.readonly}
+				onChange={props.onChange}
 				theme={theme}
 				fontSize={scale}
-				onChange={props.onChange}
-				name={props.name}
-				editorProps={{ $blockScrolling: true }}
 				keyboardHandler={bindings}
+				editorProps={{ $blockScrolling: true }}
 				enableLiveAutocompletion={true}
 				width="100%"
 				height="100%"
