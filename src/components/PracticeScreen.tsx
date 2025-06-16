@@ -14,13 +14,7 @@ import { useRef, useState } from "react";
 import AsmDiffView from "./editors/AsmDiffEditor";
 import { diffLines } from "diff";
 import { LuMoveDown, LuMoveRight } from "react-icons/lu";
-
-export type Practice = {
-  highLevelCode: string;
-  predictedCode: string;
-  compilerOutput: string;
-  changes: { adds: Number; removes: Number };
-};
+import type { Practice } from "@/contexts/PracticeContext";
 
 export type PracticeScreenProps = {
   onSubmit?: (value: Practice) => void;
