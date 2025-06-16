@@ -15,11 +15,11 @@ import { diffLines } from "diff";
 import { LuMoveRight } from "react-icons/lu";
 
 export type Practice = {
-	highLevelCode: string;
-	predictedCode: string;
-	compilerOutput: string;
-	changes: { adds: Number, removes: Number };	
-}
+  highLevelCode: string;
+  predictedCode: string;
+  compilerOutput: string;
+  changes: { adds: Number; removes: Number };
+};
 
 export type PracticeScreenProps = {
   onSubmit?: (value: Practice) => void;
@@ -56,7 +56,7 @@ async function postToGodbolt(
 }
 
 function format(input: string) {
-  return input.replace(/[ \t]+/g, ' ').replace(/^\s*[\r\n]/gm, '');
+  return input.replace(/[ \t]+/g, " ").replace(/^\s*[\r\n]/gm, "");
 }
 
 export default function PracticeScreen(props: PracticeScreenProps) {
@@ -71,8 +71,8 @@ export default function PracticeScreen(props: PracticeScreenProps) {
   const onUploadEventHandler = async () => {
     setFetching(true);
 
-	changes.current.adds = 0;
-	changes.current.removes = 0;
+    changes.current.adds = 0;
+    changes.current.removes = 0;
 
     const isValid = highLevelCode.current.trim() !== "";
     setIsCodeValid(isValid);
@@ -82,17 +82,20 @@ export default function PracticeScreen(props: PracticeScreenProps) {
         source: highLevelCode.current,
         options: "",
       });
-      compilerOutput.current = format(asm.replace("# Compilation provided by Compiler Explorer at https://godbolt.org/", ""));
+      compilerOutput.current = format(
+        asm.replace(
+          "# Compilation provided by Compiler Explorer at https://godbolt.org/",
+          "",
+        ),
+      );
     }
 
-	const changesObj = diffLines(predictedCode.current, compilerOutput.current);
+    const changesObj = diffLines(predictedCode.current, compilerOutput.current);
 
-	for (const change of changesObj) {
-		if (change.added)
-			changes.current.adds++;
-		else if (change.removed)
-			changes.current.removes++;
-	}
+    for (const change of changesObj) {
+      if (change.added) changes.current.adds++;
+      else if (change.removed) changes.current.removes++;
+    }
 
     setFetching(false);
   };
@@ -109,8 +112,8 @@ export default function PracticeScreen(props: PracticeScreenProps) {
           <Heading>Practice code</Heading>
           <Editor
             onChange={(value) => (highLevelCode.current = value)}
-			value={props.code}
-			readonly={!!props.code}
+            value={props.code}
+            readonly={!!props.code}
             mode="c_cpp"
             placeholder="Insert code to be compiled"
           />
@@ -145,14 +148,17 @@ export default function PracticeScreen(props: PracticeScreenProps) {
                 <Flex w="100%" h="100%" justify="center" align="center">
                   <Stack justify="center" align="center" w="100%" h="100%">
                     {isCodeValid ? (
-					  <>
-					  <LuMoveRight />
-					  <Heading>{`Adds: ${changes.current.adds}`}</Heading>
-					  <Heading>{`Removes: ${changes.current.removes}`}</Heading>
-                      <AsmDiffView
-                        value={[predictedCode.current, compilerOutput.current]}
-                      />
-					  </>
+                      <>
+                        <LuMoveRight />
+                        <Heading>{`Adds: ${changes.current.adds}`}</Heading>
+                        <Heading>{`Removes: ${changes.current.removes}`}</Heading>
+                        <AsmDiffView
+                          value={[
+                            predictedCode.current,
+                            compilerOutput.current,
+                          ]}
+                        />
+                      </>
                     ) : (
                       <EmptyState.Root size="sm">
                         <EmptyState.Content>
@@ -169,7 +175,19 @@ export default function PracticeScreen(props: PracticeScreenProps) {
                 <Dialog.ActionTrigger asChild>
                   <Button variant="outline">Cancel</Button>
                 </Dialog.ActionTrigger>
-                {isCodeValid && <Button>Save</Button>}
+                {isCodeValid && (
+                  <Button
+                    onClick={() =>
+                      props.onSubmit?.({
+                        changes: changes.current,
+                        compilerOutput: compilerOutput.current,
+                        highLevelCode: highLevelCode.current,
+                        predictedCode: predictedCode.current
+                      })}
+                  >
+                    Proceed
+                  </Button>
+                )}
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />
