@@ -7,7 +7,11 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import { useContext } from "react";
 import { EditorContext } from "@/contexts/EditorContext";
 
-export default function AsmDiffView() {
+export type AsmDiffViewProps = {
+	value: string[];
+};
+
+export default function AsmDiffView(props: AsmDiffViewProps) {
 	const { scale } = useContext(EditorContext);
 	const editorTheme = useColorModeValue("kuroir", "monokai");
 	const theme = useColorModeValue("light", "dark");
@@ -15,7 +19,7 @@ export default function AsmDiffView() {
 	return (
 		<div className={theme}>
 			<DiffEditor
-				value={["mov rax, rbx\nmov [rax], rcx", "mov rax, rcx;\nmov [rax], rcx"]}
+				value={props.value}
 				theme={editorTheme}
 				fontSize={scale}
 				mode="assembly_x86"

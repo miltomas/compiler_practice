@@ -1,87 +1,124 @@
-import { Button, Flex, Heading, Stack } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Heading,
+  Stack,
+  Dialog,
+  Portal,
+  CloseButton,
+} from "@chakra-ui/react";
 import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
+import AsmDiffView from "./editors/AsmDiffEditor";
 
 export type PracticeScreenProps = {
-	onUpload: () => void;
+  onUpload: () => void;
 };
 
 async function postToGodbolt(
-	compiler: string,
-	payload: { source: string; options: string },
+  compiler: string,
+  payload: { source: string; options: string },
 ) {
-	const url = `https://godbolt.org/api/compiler/${compiler}/compile`;
+  const url = `https://godbolt.org/api/compiler/${compiler}/compile`;
 
-	try {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(payload),
-		});
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-		if (!response.ok) {
-			throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
-		}
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+    }
 
-		const data = await response.text();
-		console.log("Response:", data);
+    const data = await response.text();
+    console.log("Response:", data);
 
-		return data;
-	} catch (err) {
-		console.error("Error during fetch:", err);
-		throw err;
-	}
+    return data;
+  } catch (err) {
+    console.error("Error during fetch:", err);
+    throw err;
+  }
 }
 
 export default function PracticeScreen() {
-	const highLevelCode = useRef("");
-	const predictedCode = useRef("");
+  const highLevelCode = useRef("");
+  const predictedCode = useRef("");
+  const compilerOutput = useRef("");
 
-	const [fetching, setFetching] = useState(false);
+  const [fetching, setFetching] = useState(false);
 
-	return (
-		<Stack w="100%" h="100%" align="center" p="10px">
-			<Flex
-				flexDirection={{ base: "column", md: "row" }}
-				w="100%"
-				h="100%"
-				gap="10px"
-			>
-				<Stack w="100%" h="100%">
-					<Heading>Practice code</Heading>
-					<Editor
-						onChange={(value) => (highLevelCode.current = value)}
-						mode="c_cpp"
-					/>
-				</Stack>
-				<Stack w="100%" h="100%">
-					<Heading>Assembly</Heading>
-					<Editor
-						onChange={(value) => (predictedCode.current = value)}
-						value={predictedCode.current}
-						mode="assembly_x86"
-					/>
-				</Stack>
-			</Flex>
-			<Button
-				w={{ base: "100%", md: "40%" }}
-				onClick={async () => {
-					setFetching(true);
+  return (
+    <Stack w="100%" h="100%" align="center" p="10px">
+      <Flex
+        flexDirection={{ base: "column", md: "row" }}
+        w="100%"
+        h="100%"
+        gap="10px"
+      >
+        <Stack w="100%" h="100%">
+          <Heading>Practice code</Heading>
+          <Editor
+            onChange={(value) => (highLevelCode.current = value)}
+            mode="c_cpp"
+          />
+        </Stack>
+        <Stack w="100%" h="100%">
+          <Heading>Assembly</Heading>
+          <Editor
+            onChange={(value) => (predictedCode.current = value)}
+            mode="assembly_x86"
+          />
+        </Stack>
+      </Flex>
+      <Dialog.Root lazyMount>
+        <Dialog.Trigger asChild>
+          <Button
+            w={{ base: "100%", md: "40%" }}
+            onClick={async () => {
+              setFetching(true);
 
-					const asm = await postToGodbolt("g95", {
-						source: highLevelCode.current,
-						options: "",
-					});
-					predictedCode.current = asm;
+              const asm = await postToGodbolt("g95", {
+                source: highLevelCode.current,
+                options: "",
+              });
+              compilerOutput.current = asm;
 
-					setFetching(false);
-				}}
-				loading={fetching}
-			>
-				Upload
-			</Button>
-		</Stack>
-	);
+              setFetching(false);
+            }}
+            loading={fetching}
+          >
+            Upload
+          </Button>
+        </Dialog.Trigger>
+        <Portal>
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content>
+              <Dialog.Header>
+                <Dialog.Title>Results</Dialog.Title>
+              </Dialog.Header>
+              <Dialog.Body>
+                <AsmDiffView
+                  value={[predictedCode.current, compilerOutput.current]}
+                />
+              </Dialog.Body>
+              <Dialog.Footer>
+                <Dialog.ActionTrigger asChild>
+                  <Button variant="outline">Cancel</Button>
+                </Dialog.ActionTrigger>
+                <Button>Save</Button>
+              </Dialog.Footer>
+              <Dialog.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </Dialog.CloseTrigger>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Portal>
+      </Dialog.Root>
+    </Stack>
+  );
 }
