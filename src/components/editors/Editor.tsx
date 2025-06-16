@@ -18,6 +18,7 @@ interface EditorProps {
 	value?: string;
 	name?: string;
 	readonly?: boolean;
+	placeholder?: string;
 }
 
 export default function Editor(props: EditorProps) {
@@ -32,6 +33,7 @@ export default function Editor(props: EditorProps) {
 				value={props.value}
 				name={props.name}
 				readOnly={props.readonly}
+				placeholder={props.placeholder}
 				onChange={props.onChange}
 				theme={theme}
 				fontSize={scale}

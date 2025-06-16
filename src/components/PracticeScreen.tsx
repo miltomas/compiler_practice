@@ -8,7 +8,6 @@ import {
   CloseButton,
   HStack,
   EmptyState,
-  VStack,
 } from "@chakra-ui/react";
 import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
@@ -68,6 +67,7 @@ export default function PracticeScreen() {
           <Editor
             onChange={(value) => (highLevelCode.current = value)}
             mode="c_cpp"
+			placeholder="Insert code to be compiled"
           />
         </Stack>
         <Stack w="100%" h="100%">
@@ -75,6 +75,7 @@ export default function PracticeScreen() {
           <Editor
             onChange={(value) => (predictedCode.current = value)}
             mode="assembly_x86"
+			placeholder="Predict compiler output"
           />
         </Stack>
       </Flex>
