@@ -6,6 +6,9 @@ import {
   Dialog,
   Portal,
   CloseButton,
+  HStack,
+  EmptyState,
+  VStack,
 } from "@chakra-ui/react";
 import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
@@ -49,6 +52,7 @@ export default function PracticeScreen() {
   const predictedCode = useRef("");
   const compilerOutput = useRef("");
 
+  const [isCodeValid, setIsCodeValid] = useState(true);
   const [fetching, setFetching] = useState(false);
 
   return (
@@ -74,18 +78,23 @@ export default function PracticeScreen() {
           />
         </Stack>
       </Flex>
-      <Dialog.Root lazyMount>
+      <Dialog.Root lazyMount size="cover">
         <Dialog.Trigger asChild>
           <Button
             w={{ base: "100%", md: "40%" }}
             onClick={async () => {
               setFetching(true);
 
-              const asm = await postToGodbolt("g95", {
-                source: highLevelCode.current,
-                options: "",
-              });
-              compilerOutput.current = asm;
+			  const isValid = highLevelCode.current.trim() !== "";
+			  setIsCodeValid(isValid);
+
+			  if (isValid) {
+				  const asm = await postToGodbolt("g95", {
+					source: highLevelCode.current,
+					options: "",
+				  });
+				  compilerOutput.current = asm;
+			  }
 
               setFetching(false);
             }}
@@ -102,15 +111,29 @@ export default function PracticeScreen() {
                 <Dialog.Title>Results</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
-                <AsmDiffView
-                  value={[predictedCode.current, compilerOutput.current]}
-                />
+                <Flex w="100%" h="100%" justify="center" align="center">
+                  <HStack justify="center" align="center" w="100%" h="100%">
+                    {isCodeValid ? (
+                      <AsmDiffView
+                        value={[predictedCode.current, compilerOutput.current]}
+                      />
+                    ) : (
+                      <EmptyState.Root size="sm">
+                        <EmptyState.Content>
+                          <EmptyState.Indicator>
+						  	No code submitted
+                          </EmptyState.Indicator>
+                        </EmptyState.Content>
+                      </EmptyState.Root>
+                    )}
+                  </HStack>
+                </Flex>
               </Dialog.Body>
               <Dialog.Footer>
                 <Dialog.ActionTrigger asChild>
                   <Button variant="outline">Cancel</Button>
                 </Dialog.ActionTrigger>
-                <Button>Save</Button>
+				{ isCodeValid && <Button>Save</Button> }
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />

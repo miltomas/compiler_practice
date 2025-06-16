@@ -18,7 +18,7 @@ export default function AsmDiffView(props: AsmDiffViewProps) {
 	const theme = useColorModeValue("light", "dark");
 
 	return (
-		<div className={theme}>
+		<div className={theme} style={{ width: "100%", height: "100%" }}>
 			<EditorView>
 				<DiffEditor
 					value={props.value}
@@ -28,8 +28,10 @@ export default function AsmDiffView(props: AsmDiffViewProps) {
 					focus={false}
 					showGutter={true}
 					readOnly={true}
+					width="100%"
+					height="100%"
 				/>
 			</EditorView>
 		</div>
 	);
-}
+};
