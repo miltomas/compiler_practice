@@ -6,17 +6,19 @@ import {
   Dialog,
   Portal,
   CloseButton,
-  HStack,
   EmptyState,
 } from "@chakra-ui/react";
 import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
 import AsmDiffView from "./editors/AsmDiffEditor";
+import { diffLines } from "diff";
+import { LuArrowRight, LuCircleArrowOutUpRight, LuMoveRight } from "react-icons/lu";
 
 export type Practice = {
 	highLevelCode: string;
 	predictedCode: string;
 	compilerOutput: string;
+	changes: { adds: Number, removes: Number };	
 }
 
 export type PracticeScreenProps = {
@@ -61,12 +63,16 @@ export default function PracticeScreen(props: PracticeScreenProps) {
   const highLevelCode = useRef("");
   const predictedCode = useRef("");
   const compilerOutput = useRef("");
+  const changes = useRef({ adds: 0, removes: 0 });
 
   const [isCodeValid, setIsCodeValid] = useState(true);
   const [fetching, setFetching] = useState(false);
 
   const onUploadEventHandler = async () => {
     setFetching(true);
+
+	changes.current.adds = 0;
+	changes.current.removes = 0;
 
     const isValid = highLevelCode.current.trim() !== "";
     setIsCodeValid(isValid);
@@ -78,6 +84,15 @@ export default function PracticeScreen(props: PracticeScreenProps) {
       });
       compilerOutput.current = format(asm.replace("# Compilation provided by Compiler Explorer at https://godbolt.org/", ""));
     }
+
+	const changesObj = diffLines(predictedCode.current, compilerOutput.current);
+
+	for (const change of changesObj) {
+		if (change.added)
+			changes.current.adds++;
+		else if (change.removed)
+			changes.current.removes++;
+	}
 
     setFetching(false);
   };
@@ -128,11 +143,16 @@ export default function PracticeScreen(props: PracticeScreenProps) {
               </Dialog.Header>
               <Dialog.Body>
                 <Flex w="100%" h="100%" justify="center" align="center">
-                  <HStack justify="center" align="center" w="100%" h="100%">
+                  <Stack justify="center" align="center" w="100%" h="100%">
                     {isCodeValid ? (
+					  <>
+					  <LuMoveRight />
+					  <Heading>{`Adds: ${changes.current.adds}`}</Heading>
+					  <Heading>{`Removes: ${changes.current.removes}`}</Heading>
                       <AsmDiffView
                         value={[predictedCode.current, compilerOutput.current]}
                       />
+					  </>
                     ) : (
                       <EmptyState.Root size="sm">
                         <EmptyState.Content>
@@ -142,7 +162,7 @@ export default function PracticeScreen(props: PracticeScreenProps) {
                         </EmptyState.Content>
                       </EmptyState.Root>
                     )}
-                  </HStack>
+                  </Stack>
                 </Flex>
               </Dialog.Body>
               <Dialog.Footer>
