@@ -52,8 +52,6 @@ export default function PracticeScreen() {
           <Editor
             onChange={(value) => (highLevelCode.current = value)}
             mode="c_cpp"
-            name="c"
-            key="c"
           />
         </Stack>
         <Stack w="100%" h="100%">
@@ -61,8 +59,6 @@ export default function PracticeScreen() {
           <Editor
             onChange={(value) => (predictedCode.current = value)}
             mode="assembly_x86"
-            name="asm"
-            key="asm"
           />
         </Stack>
       </Flex>

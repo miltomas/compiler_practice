@@ -13,10 +13,10 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import { Box } from "@chakra-ui/react";
 
 interface EditorProps {
-	onChange: (value: string, event: any) => void;
+	onChange?: (value: string, event: any) => void;
 	mode: string;
-	name: string;
-	readonly: boolean;
+	name?: string;
+	readonly?: boolean;
 }
 
 export default function Editor(props: EditorProps) {
