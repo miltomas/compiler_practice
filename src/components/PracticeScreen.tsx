@@ -54,6 +54,23 @@ export default function PracticeScreen() {
   const [isCodeValid, setIsCodeValid] = useState(true);
   const [fetching, setFetching] = useState(false);
 
+  const onUploadEventHandler = async () => {
+    setFetching(true);
+
+    const isValid = highLevelCode.current.trim() !== "";
+    setIsCodeValid(isValid);
+
+    if (isValid) {
+      const asm = await postToGodbolt("g95", {
+        source: highLevelCode.current,
+        options: "",
+      });
+      compilerOutput.current = asm;
+    }
+
+    setFetching(false);
+  };
+
   return (
     <Stack w="100%" h="100%" align="center" p="10px">
       <Flex
@@ -67,7 +84,7 @@ export default function PracticeScreen() {
           <Editor
             onChange={(value) => (highLevelCode.current = value)}
             mode="c_cpp"
-			placeholder="Insert code to be compiled"
+            placeholder="Insert code to be compiled"
           />
         </Stack>
         <Stack w="100%" h="100%">
@@ -75,7 +92,7 @@ export default function PracticeScreen() {
           <Editor
             onChange={(value) => (predictedCode.current = value)}
             mode="assembly_x86"
-			placeholder="Predict compiler output"
+            placeholder="Predict compiler output"
           />
         </Stack>
       </Flex>
@@ -83,22 +100,7 @@ export default function PracticeScreen() {
         <Dialog.Trigger asChild>
           <Button
             w={{ base: "100%", md: "40%" }}
-            onClick={async () => {
-              setFetching(true);
-
-			  const isValid = highLevelCode.current.trim() !== "";
-			  setIsCodeValid(isValid);
-
-			  if (isValid) {
-				  const asm = await postToGodbolt("g95", {
-					source: highLevelCode.current,
-					options: "",
-				  });
-				  compilerOutput.current = asm;
-			  }
-
-              setFetching(false);
-            }}
+            onClick={onUploadEventHandler}
             loading={fetching}
           >
             Upload
@@ -122,7 +124,7 @@ export default function PracticeScreen() {
                       <EmptyState.Root size="sm">
                         <EmptyState.Content>
                           <EmptyState.Indicator>
-						  	No code submitted
+                            No code submitted
                           </EmptyState.Indicator>
                         </EmptyState.Content>
                       </EmptyState.Root>
@@ -134,7 +136,7 @@ export default function PracticeScreen() {
                 <Dialog.ActionTrigger asChild>
                   <Button variant="outline">Cancel</Button>
                 </Dialog.ActionTrigger>
-				{ isCodeValid && <Button>Save</Button> }
+                {isCodeValid && <Button>Save</Button>}
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
                 <CloseButton size="sm" />
