@@ -8,6 +8,7 @@ import { Box } from "@chakra-ui/react";
 import Sandbox from "./pages/Sandbox";
 import HistoryPage from "./pages/HistoryPage";
 import { PracticeContext, type Practice } from "./contexts/PracticeContext";
+import HistoryView from "./pages/HistoryView";
 
 function App() {
 	const editorCtx = useContext(EditorContext);
@@ -35,6 +36,7 @@ function App() {
 					<Route path="/" element={<HomePage />} />
 					<Route path="/sandbox" element={<Sandbox />} />
 					<Route path="/history" element={<HistoryPage />} />
+					<Route path="/view" element={<HistoryView />} />
 				</Routes>
 			</Box>
 		</>
