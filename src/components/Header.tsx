@@ -11,7 +11,7 @@ import {
 	Portal,
 	IconButton,
 } from "@chakra-ui/react";
-import { LuCodesandbox, LuHouse, LuInfo, LuList } from "react-icons/lu";
+import { LuCodesandbox, LuHouse, LuList } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { ColorModeButton } from "./ui/color-mode";
 import Settings from "./Settings/Settings";
@@ -34,10 +34,10 @@ function Hamburger() {
 								</Button>
 							</Link>
 						</Menu.Item>
-						<Menu.Item value="about">
-							<Link to="/about">
+						<Menu.Item value="sandbox">
+							<Link to="/sandbox">
 								<Button variant="plain">
-									<LuInfo /> About
+									<LuCodesandbox /> Sandbox
 								</Button>
 							</Link>
 						</Menu.Item>
