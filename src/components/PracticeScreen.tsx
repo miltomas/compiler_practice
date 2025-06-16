@@ -12,7 +12,7 @@ import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
 import AsmDiffView from "./editors/AsmDiffEditor";
 import { diffLines } from "diff";
-import { LuArrowRight, LuCircleArrowOutUpRight, LuMoveRight } from "react-icons/lu";
+import { LuMoveRight } from "react-icons/lu";
 
 export type Practice = {
 	highLevelCode: string;
