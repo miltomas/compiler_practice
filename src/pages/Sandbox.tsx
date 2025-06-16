@@ -1,7 +1,7 @@
 import PracticeScreen from "@/components/PracticeScreen";
 
 export default function Sandbox() {
-	return (
-		<PracticeScreen />
-	);
+  return (
+    <PracticeScreen />
+  );
 }

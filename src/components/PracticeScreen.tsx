@@ -13,8 +13,15 @@ import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
 import AsmDiffView from "./editors/AsmDiffEditor";
 
+export type Practice = {
+	highLevelCode: string;
+	predictedCode: string;
+	compilerOutput: string;
+}
+
 export type PracticeScreenProps = {
-  onUpload: () => void;
+  onSubmit?: (value: Practice) => void;
+  code?: string;
 };
 
 async function postToGodbolt(
@@ -50,7 +57,7 @@ function format(input: string) {
   return input.replace(/[ \t]+/g, ' ').replace(/^\s*[\r\n]/gm, '');
 }
 
-export default function PracticeScreen() {
+export default function PracticeScreen(props: PracticeScreenProps) {
   const highLevelCode = useRef("");
   const predictedCode = useRef("");
   const compilerOutput = useRef("");
@@ -87,6 +94,8 @@ export default function PracticeScreen() {
           <Heading>Practice code</Heading>
           <Editor
             onChange={(value) => (highLevelCode.current = value)}
+			value={props.code}
+			readonly={!!props.code}
             mode="c_cpp"
             placeholder="Insert code to be compiled"
           />
