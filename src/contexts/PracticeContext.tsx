@@ -1,31 +1,40 @@
-import { createContext, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from "react";
 
 export type Practice = {
-	highLevelCode: string;
-	predictedCode: string;
-	compilerOutput: string;
-	changes: { adds: Number; removes: Number };
+  highLevelCode: string;
+  predictedCode: string;
+  compilerOutput: string;
+  changes: { adds: Number; removes: Number };
 };
 
 export type PracticeContextType = {
-	history: Practice[];
-	addPractice: (value: Practice) => void;
+  history: Practice[];
+  addPractice: (value: Practice) => void;
+  setHistory: Dispatch<SetStateAction<Practice[]>>;
 };
 
-const PracticeContext = createContext<PracticeContextType>(undefined!);
+export const PracticeContext = createContext<PracticeContextType>(undefined!);
 
 export default function PracticeProvider({
-	children,
+  children,
 }: {
-	children: ReactNode;
+  children: ReactNode;
 }) {
-	const [practices, setPractices] = useState<Practice[]>([]);
-	const addPractice = (value: Practice) =>
-		setPractices((values) => [...values, value]);
+  const [practices, setPractices] = useState<Practice[]>([]);
+  const addPractice = (value: Practice) =>
+    setPractices((values) => [...values, value]);
 
-	return (
-		<PracticeContext.Provider value={{ history: practices, addPractice }}>
-			{children}
-		</PracticeContext.Provider>
-	);
+  return (
+    <PracticeContext.Provider
+      value={{ history: practices, addPractice, setHistory: setPractices }}
+    >
+      {children}
+    </PracticeContext.Provider>
+  );
 }

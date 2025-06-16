@@ -5,15 +5,18 @@ import App from "./App.tsx";
 import { Provider } from "@/components/ui/provider.tsx";
 import { EditorProvider } from "./contexts/EditorContext.tsx";
 import { BrowserRouter } from "react-router";
+import PracticeProvider from "./contexts/PracticeContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
-	<Provider>
-		<EditorProvider>
-			<BrowserRouter>
-				<StrictMode>
-					<App />
-				</StrictMode>
-			</BrowserRouter>
-		</EditorProvider>
-	</Provider>,
+  <Provider>
+    <PracticeProvider>
+      <EditorProvider>
+        <BrowserRouter>
+          <StrictMode>
+            <App />
+          </StrictMode>
+        </BrowserRouter>
+      </EditorProvider>
+    </PracticeProvider>
+  </Provider>,
 );
