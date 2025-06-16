@@ -9,6 +9,7 @@ import { EditorContext } from "@/contexts/EditorContext";
 import EditorView from "./EditorView";
 
 export type AsmDiffViewProps = {
+	orientation?: string;
 	value: string[];
 };
 
@@ -21,6 +22,7 @@ export default function AsmDiffView(props: AsmDiffViewProps) {
 		<div className={theme} style={{ width: "100%", height: "100%" }}>
 			<EditorView>
 				<DiffEditor
+					orientation={props.orientation}
 					value={props.value}
 					theme={editorTheme}
 					fontSize={scale}

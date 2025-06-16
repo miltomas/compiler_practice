@@ -7,12 +7,13 @@ import {
   Portal,
   CloseButton,
   EmptyState,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import Editor from "./editors/Editor";
 import { useRef, useState } from "react";
 import AsmDiffView from "./editors/AsmDiffEditor";
 import { diffLines } from "diff";
-import { LuMoveRight } from "react-icons/lu";
+import { LuMoveDown, LuMoveRight } from "react-icons/lu";
 
 export type Practice = {
   highLevelCode: string;
@@ -67,6 +68,8 @@ export default function PracticeScreen(props: PracticeScreenProps) {
 
   const [isCodeValid, setIsCodeValid] = useState(true);
   const [fetching, setFetching] = useState(false);
+
+  const orientation = useBreakpointValue({ base: "below", md: "beside" });
 
   const onUploadEventHandler = async () => {
     setFetching(true);
@@ -149,10 +152,15 @@ export default function PracticeScreen(props: PracticeScreenProps) {
                   <Stack justify="center" align="center" w="100%" h="100%">
                     {isCodeValid ? (
                       <>
-                        <LuMoveRight />
+                        {orientation == "beside" ? (
+                          <LuMoveRight />
+                        ) : (
+                          <LuMoveDown />
+                        )}
                         <Heading>{`Adds: ${changes.current.adds}`}</Heading>
                         <Heading>{`Removes: ${changes.current.removes}`}</Heading>
                         <AsmDiffView
+                          orientation={orientation}
                           value={[
                             predictedCode.current,
                             compilerOutput.current,
@@ -182,8 +190,9 @@ export default function PracticeScreen(props: PracticeScreenProps) {
                         changes: changes.current,
                         compilerOutput: compilerOutput.current,
                         highLevelCode: highLevelCode.current,
-                        predictedCode: predictedCode.current
-                      })}
+                        predictedCode: predictedCode.current,
+                      })
+                    }
                   >
                     Proceed
                   </Button>
