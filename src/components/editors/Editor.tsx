@@ -24,7 +24,7 @@ export default function Editor(props: EditorProps) {
 	const theme = useColorModeValue("kuroir", "monokai");
 
 	return (
-		<Box overflow="hidden" width="100%" height="100%" borderRadius="15px">
+		<Box overflow="hidden" width="100%" height="100%" borderRadius="8px">
 			<AceEditor
 				mode={props.mode}
 				theme={theme}
