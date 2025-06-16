@@ -15,6 +15,7 @@ import { Box } from "@chakra-ui/react";
 interface EditorProps {
 	onChange?: (value: string, event: any) => void;
 	mode: string;
+	value?: string;
 	name?: string;
 	readonly?: boolean;
 }
@@ -28,6 +29,7 @@ export default function Editor(props: EditorProps) {
 		<Box overflow="hidden" width="100%" height="100%" borderRadius="8px">
 			<AceEditor
 				mode={props.mode}
+				value={props.value}
 				name={props.name}
 				readOnly={props.readonly}
 				onChange={props.onChange}
