@@ -10,7 +10,7 @@ import "ace-builds/src-noconflict/keybinding-vim";
 import { useContext } from "react";
 import { EditorContext } from "@/contexts/EditorContext";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import { Box } from "@chakra-ui/react";
+import EditorView from "./EditorView";
 
 interface EditorProps {
 	onChange?: (value: string, event: any) => void;
@@ -26,7 +26,7 @@ export default function Editor(props: EditorProps) {
 	const theme = useColorModeValue("kuroir", "monokai");
 
 	return (
-		<Box overflow="hidden" width="100%" height="100%" borderRadius="8px">
+		<EditorView>
 			<AceEditor
 				mode={props.mode}
 				value={props.value}
@@ -41,6 +41,6 @@ export default function Editor(props: EditorProps) {
 				width="100%"
 				height="100%"
 			/>
-		</Box>
+		</EditorView>
 	);
 }

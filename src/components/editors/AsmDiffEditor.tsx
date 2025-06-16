@@ -6,6 +6,7 @@ import "./Diff.css";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { useContext } from "react";
 import { EditorContext } from "@/contexts/EditorContext";
+import EditorView from "./EditorView";
 
 export type AsmDiffViewProps = {
 	value: string[];
@@ -18,15 +19,17 @@ export default function AsmDiffView(props: AsmDiffViewProps) {
 
 	return (
 		<div className={theme}>
-			<DiffEditor
-				value={props.value}
-				theme={editorTheme}
-				fontSize={scale}
-				mode="assembly_x86"
-				focus={false}
-				showGutter={true}
-				readOnly={true}
-			/>
+			<EditorView>
+				<DiffEditor
+					value={props.value}
+					theme={editorTheme}
+					fontSize={scale}
+					mode="assembly_x86"
+					focus={false}
+					showGutter={true}
+					readOnly={true}
+				/>
+			</EditorView>
 		</div>
 	);
 }
