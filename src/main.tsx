@@ -4,18 +4,18 @@ import "./index.css";
 import App from "./App.tsx";
 import { Provider } from "@/components/ui/provider.tsx";
 import { EditorProvider } from "./contexts/EditorContext.tsx";
-import { BrowserRouter } from "react-router";
+import { HashRouter } from "react-router";
 import PracticeProvider from "./contexts/PracticeContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <Provider>
     <PracticeProvider>
       <EditorProvider>
-        <BrowserRouter>
+        <HashRouter>
           <StrictMode>
             <App />
           </StrictMode>
-        </BrowserRouter>
+        </HashRouter>
       </EditorProvider>
     </PracticeProvider>
   </Provider>,
