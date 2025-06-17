@@ -16,7 +16,11 @@ function App() {
 
 	useEffect(() => {
 		editorCtx.setBindings((localStorage.getItem("binds") as EditorBinds) ?? "");
-		editorCtx.setScale(Number(localStorage.getItem("scale")) ?? 14);
+		editorCtx.setScale(
+			localStorage.getItem("scale") !== null
+				? Number(localStorage.getItem("scale"))
+				: 14,
+		);
 
 		const raw = localStorage.getItem("history");
 		const parsed: Practice[] = raw ? JSON.parse(raw) : [];
