@@ -40,7 +40,7 @@ export default function HomePage() {
 		<Flex
 			w="100%"
 			h="100%"
-			ml={{ base: 8, md: 0 }}
+			pl={{ base: 8, md: 0 }}
 			justify={{ base: "flex-start", md: "center" }}
 			align="center"
 		>
