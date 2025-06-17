@@ -98,7 +98,7 @@ export default function PracticeScreen(props: PracticeScreenProps) {
   };
 
   return (
-    <Stack w="100%" h="100%" align="center" p="10px">
+    <Stack w="100%" h="97%" align="center" p="10px">
       <Flex
         flexDirection={{ base: "column", md: "row" }}
         w="100%"

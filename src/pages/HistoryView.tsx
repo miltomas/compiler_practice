@@ -1,7 +1,7 @@
 import AsmDiffView from "@/components/editors/AsmDiffEditor";
 import Editor from "@/components/editors/Editor";
 import type { Practice } from "@/contexts/PracticeContext";
-import { Card, Heading, HStack } from "@chakra-ui/react";
+import { Card, Heading, HStack, useBreakpointValue } from "@chakra-ui/react";
 import { useLocation } from "react-router";
 
 interface LocationState {
@@ -10,6 +10,8 @@ interface LocationState {
 export default function HistoryView() {
 	const location = useLocation();
 	const { practice } = location.state as LocationState;
+
+	const orientation = useBreakpointValue({ base: "below", md: "beside" });
 
 	return (
 		<Card.Root size="lg" w="100%" h="100%">
@@ -31,6 +33,7 @@ export default function HistoryView() {
 					<Editor mode="c_cpp" value={practice.highLevelCode} readonly />
 					<AsmDiffView
 						value={[practice.predictedCode, practice.compilerOutput]}
+						orientation={orientation}
 					/>
 				</HStack>
 			</Card.Body>
